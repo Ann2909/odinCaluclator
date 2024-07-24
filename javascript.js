@@ -17,13 +17,13 @@ function divideNumbers(a,b) {
 function callOperation(ope, num1, num2) {
     switch (ope) {
         case '+':
-            return addNumbers(num1, num2);
+            return Math.round(addNumbers(num1, num2) * 10) / 10;
         case '-':
-            return substractNumbers(num1, num2);
-        case '*':
-            return multiplyNumbers(num1, num2);
+            return Math.round(substractNumbers(num1, num2) * 10) / 10;
+        case 'x':
+            return Math.round(multiplyNumbers(num1, num2) * 10) / 10;
         case ':':
-            return divideNumbers(num1, num2);
+            return Math.round(divideNumbers(num1, num2) * 10) / 10;
         default: 
             console.log("Choose a proper operator!");
     }
