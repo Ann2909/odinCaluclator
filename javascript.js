@@ -99,3 +99,7 @@ clearButton.addEventListener('click', (e) => { //if clear button is clicked, res
 //okay, now that we can have Maths for 2 numbers, next what do we want?
 //from the second time doing Maths onwards, the previous result will automatically be first num and must change second num to ''
 //if operator is clicked, and there are already firstNum and secondNum, do maths right away
+
+//next: try to fix the divide by zero problem, it should display an alert that user cannot do that and computedly clear everything to start over
+//then: add a backspace
+//then: research the keyboard option if possible
