@@ -1,4 +1,3 @@
-//step 1: write functions to add, substract, multiply and divide
 function addNumbers(a, b) {
     return a + b;
 }
@@ -15,29 +14,79 @@ function divideNumbers(a,b) {
     return a / b;
 }
 
-//step 2: create variables for each part of the operation
-let firstNum = 0;
-let secondNum = 0;
-let operator = '';
-
-//step 3: create a new function operate that takes an operator and 2 numbers and then calls one of the above functions on the numbers.
-function callOperation(operator, num1, num2) {
-    switch (operator) {
+function callOperation(ope, num1, num2) {
+    switch (ope) {
         case '+':
-            addNumbers(num1, num2);
-            break;
+            return addNumbers(num1, num2);
         case '-':
-            substractNumbers(num1, num2);
-            break;
+            return substractNumbers(num1, num2);
         case '*':
-            multiplyNumbers(num1, num2);
-            break;
-        case '/':
-            divideNumbers(num1, num2);
-            break;
+            return multiplyNumbers(num1, num2);
+        case ':':
+            return divideNumbers(num1, num2);
         default: 
             console.log("Choose a proper operator!");
     }
 }
 
-//step 4: create a basic HTML calculator with buttons for each digit, each of the above functions and an “Equals” key. Check the html file
+let firstNum = '';
+let secondNum = '';
+let operator = '';
+let temporaryResult = '';
+
+let displayValue = document.querySelector('.displayValue');
+
+let numButtons = document.querySelectorAll('.numberButton');
+let opeButtons = document.querySelectorAll('.operatorButton');
+let equalButton = document.querySelector('.equalButton');
+let clearButton = document.querySelector('.clearButton');
+
+numButtons.forEach((button) => {
+    button.addEventListener('click', (e) => { //if num button is clicked
+        displayValue.textContent += button.textContent;
+        
+        if (!operator) {
+            firstNum += button.textContent;
+            
+        } else if (operator) {
+            secondNum += button.textContent;
+           
+        }
+    });
+});
+
+opeButtons.forEach((button) => {
+    button.addEventListener('click', (e) => { //if ope button is clicked
+        if (firstNum && secondNum) {
+            displayValue.textContent = callOperation(operator, +firstNum, +secondNum);
+            firstNum = displayValue.textContent;
+            secondNum = '';
+        }
+        displayValue.textContent += ' ' + button.textContent + ' ';
+        
+        operator = button.textContent;
+        
+    });
+});
+
+equalButton.addEventListener('click', (e) => { //if equal button is clicked, do Maths
+    displayValue.textContent = callOperation(operator, +firstNum, +secondNum);
+    firstNum = displayValue.textContent;
+    secondNum = '';
+});
+
+clearButton.addEventListener('click', (e) => { //if clear button is clicked, reset everything
+    displayValue.textContent = '';
+    operator = '';
+    firstNum = '';
+    secondNum = '';
+});
+
+//we need a calculator algorithm
+//what we have right now is a bunch of buttons with string Content, among which, there are numButtons and opeButtons and clearButton
+//what happens if we click something?
+//we need a way to let the machine know that that's enough for the first num, from now on store these for the second num
+//maybe we can use the operator as a sort of switch
+//okay, now that we can have Maths for 2 numbers, next what do we want?
+//from the second time doing Maths onwards, the previous result will automatically be first num and must change second num to ''
+//if operator is clicked, and there are already firstNum and secondNum, do maths right away
