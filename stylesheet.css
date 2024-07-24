@@ -1,0 +1,15 @@
+* {
+    box-sizing: border-box;
+}
+
+.digitButtons {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+button {
+    width: 100px;
+    height: 50px;
+}
