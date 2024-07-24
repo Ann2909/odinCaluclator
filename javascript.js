@@ -25,14 +25,13 @@ function callOperation(ope, num1, num2) {
         case ':':
             return Math.round(divideNumbers(num1, num2) * 10) / 10;
         default: 
-            console.log("Choose a proper operator!");
+            alert("Give full equation first!");
     }
 }
 
 let firstNum = '';
 let secondNum = '';
 let operator = '';
-let temporaryResult = '';
 
 let displayValue = document.querySelector('.displayValue');
 
@@ -57,22 +56,30 @@ numButtons.forEach((button) => {
 
 opeButtons.forEach((button) => {
     button.addEventListener('click', (e) => { //if ope button is clicked
-        if (firstNum && secondNum) {
+        if (firstNum && secondNum) { //to continue doing Math with the previous results, the operator is treated like the equal button
             displayValue.textContent = callOperation(operator, +firstNum, +secondNum);
             firstNum = displayValue.textContent;
             secondNum = '';
         }
         displayValue.textContent += ' ' + button.textContent + ' ';
-        
         operator = button.textContent;
-        
+
+        if (!firstNum) {
+            alert('Choose a number first!');
+            displayValue.textContent = '';
+            operator = '';
+        }
     });
 });
 
 equalButton.addEventListener('click', (e) => { //if equal button is clicked, do Maths
-    displayValue.textContent = callOperation(operator, +firstNum, +secondNum);
-    firstNum = displayValue.textContent;
-    secondNum = '';
+    if (firstNum && secondNum) {
+        displayValue.textContent = callOperation(operator, +firstNum, +secondNum);
+        firstNum = displayValue.textContent;
+        secondNum = '';
+    } else {
+        alert("Give full equation first!");
+    }
 });
 
 clearButton.addEventListener('click', (e) => { //if clear button is clicked, reset everything
@@ -81,6 +88,8 @@ clearButton.addEventListener('click', (e) => { //if clear button is clicked, res
     firstNum = '';
     secondNum = '';
 });
+
+
 
 //we need a calculator algorithm
 //what we have right now is a bunch of buttons with string Content, among which, there are numButtons and opeButtons and clearButton
