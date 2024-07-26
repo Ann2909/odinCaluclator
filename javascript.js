@@ -122,5 +122,4 @@ backButton.addEventListener('click', (e) => {
     }
 });
 
-//still have a problem with choosing an operator twice, especially when keep doing math after the first operation goes through
-//new Feature: research the keyboard option if possible
+//Later Feature: research the keyboard option if possible, done for now
