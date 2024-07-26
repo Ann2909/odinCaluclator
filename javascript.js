@@ -23,7 +23,17 @@ function callOperation(ope, num1, num2) {
         case 'x':
             return Math.round(multiplyNumbers(num1, num2) * 10) / 10;
         case ':':
-            return Math.round(divideNumbers(num1, num2) * 10) / 10;
+            if (+secondNum === 0) {
+                alert('Are you crazy? Numbers cannot be devided by ZERO! Do it again, this time think carefully!');
+                displayValue.textContent = '';
+                operator = '';
+                firstNum = '';
+                secondNum = '';
+                break;
+            } else {
+                return Math.round(divideNumbers(num1, num2) * 10) / 10;
+            }
+            
         default: 
             alert("Give full equation first!");
     }
@@ -44,7 +54,7 @@ numButtons.forEach((button) => {
     button.addEventListener('click', (e) => { //if num button is clicked
         displayValue.textContent += button.textContent;
         
-        if (!operator) {
+        if (!operator) { //the logical assumption is that user will click number first then click operator
             firstNum += button.textContent;
             
         } else if (operator) {
@@ -61,10 +71,10 @@ opeButtons.forEach((button) => {
             firstNum = displayValue.textContent;
             secondNum = '';
         }
-        displayValue.textContent += ' ' + button.textContent + ' ';
-        operator = button.textContent;
+        displayValue.textContent += ' ' + button.textContent + ' '; //display the operator
+        operator = button.textContent; //update the operator
 
-        if (!firstNum) {
+        if (!firstNum) { //if the user click an operator before choosing the first number
             alert('Choose a number first!');
             displayValue.textContent = '';
             operator = '';
@@ -88,17 +98,6 @@ clearButton.addEventListener('click', (e) => { //if clear button is clicked, res
     firstNum = '';
     secondNum = '';
 });
-
-
-
-//we need a calculator algorithm
-//what we have right now is a bunch of buttons with string Content, among which, there are numButtons and opeButtons and clearButton
-//what happens if we click something?
-//we need a way to let the machine know that that's enough for the first num, from now on store these for the second num
-//maybe we can use the operator as a sort of switch
-//okay, now that we can have Maths for 2 numbers, next what do we want?
-//from the second time doing Maths onwards, the previous result will automatically be first num and must change second num to ''
-//if operator is clicked, and there are already firstNum and secondNum, do maths right away
 
 //next: try to fix the divide by zero problem, it should display an alert that user cannot do that and computedly clear everything to start over
 //then: add a backspace
