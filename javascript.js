@@ -51,8 +51,10 @@ let equalButton = document.querySelector('.equalButton');
 let clearButton = document.querySelector('.clearButton');
 let backButton = document.querySelector('.backSpaceButton');
 
-numButtons.forEach((button) => {
-    button.addEventListener('click', (e) => { //if num button is clicked
+let numButtonAvailable = ['0','1','2','3','4','5','6','7','8','9','.'];
+
+numButtons.forEach((button) => { //if a number button is clicked
+    button.addEventListener('click', (e) => { 
         displayValue.textContent += button.textContent;
         
         if (!operator) { //the logical assumption is that user will click number first then click operator
@@ -65,27 +67,27 @@ numButtons.forEach((button) => {
     });
 });
 
-opeButtons.forEach((button) => {
-    button.addEventListener('click', (e) => { //if ope button is clicked
+opeButtons.forEach((button) => { //if an operator button is clicked
+    button.addEventListener('click', (e) => { 
         if (firstNum && secondNum) { //to continue doing Math with the previous results, the operator is treated like the equal button
             displayValue.textContent = callOperation(operator, +firstNum, +secondNum);
             firstNum = displayValue.textContent;
             secondNum = '';
         }
-        displayValue.textContent += ' ' + button.textContent + ' '; //display the operator
-
-        // if (firstNum && operator) { //if user click an operator twice
-        //     alert('Choose a second number you idiot!');
-        //     displayValue.textContent = displayValue.textContent.slice(0,-3);
-        // }
-
-        operator = button.textContent; //update the operator
 
         if (!firstNum) { //if the user click an operator before choosing the first number
             alert('Choose a number first!');
             displayValue.textContent = '';
             operator = '';
         }
+
+        if (!numButtonAvailable.includes(displayValue.textContent[displayValue.textContent.length-1])) { //if user click an operator twice, meaning there's an operator already at the end of displayValue, meaning that last index is not part of numButton
+            alert('Choose a second number you idiot!');
+            displayValue.textContent = displayValue.textContent.slice(0,-3);
+        }
+
+        displayValue.textContent += ' ' + button.textContent + ' '; //display the operator
+        operator = button.textContent; //update the operator
     });
 });
 
