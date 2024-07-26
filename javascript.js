@@ -23,7 +23,7 @@ function callOperation(ope, num1, num2) {
         case 'x':
             return Math.round(multiplyNumbers(num1, num2) * 10) / 10;
         case ':':
-            if (+secondNum === 0) {
+            if (+secondNum === 0) { //alert errors when user divide by zero
                 alert('Are you crazy? Numbers cannot be devided by ZERO! Do it again, this time think carefully!');
                 displayValue.textContent = '';
                 operator = '';
@@ -49,6 +49,7 @@ let numButtons = document.querySelectorAll('.numberButton');
 let opeButtons = document.querySelectorAll('.operatorButton');
 let equalButton = document.querySelector('.equalButton');
 let clearButton = document.querySelector('.clearButton');
+let backButton = document.querySelector('.backSpaceButton');
 
 numButtons.forEach((button) => {
     button.addEventListener('click', (e) => { //if num button is clicked
@@ -99,6 +100,18 @@ clearButton.addEventListener('click', (e) => { //if clear button is clicked, res
     secondNum = '';
 });
 
-//next: try to fix the divide by zero problem, it should display an alert that user cannot do that and computedly clear everything to start over
-//then: add a backspace
-//then: research the keyboard option if possible
+backButton.addEventListener('click', (e) => {
+    if (displayValue.textContent[displayValue.textContent.length-1] === ' ') { //if it's an operator
+        displayValue.textContent = displayValue.textContent.slice(0, -3) //remove the last 3 index of displayValue i.e. ' 'operator' ' 
+        operator = '';
+    } else { //if it's just a number
+        displayValue.textContent = displayValue.textContent.slice(0, -1);
+        if (operator) { //if operator exists, then we must be at secondNum at this point
+            secondNum = secondNum.slice(0, -1);
+        } else { //we must be at firstNum 
+            firstNum = firstNum.slice(0, -1);
+        }
+    }
+});
+
+//new Feature: research the keyboard option if possible
