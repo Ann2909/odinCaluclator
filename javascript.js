@@ -73,6 +73,12 @@ opeButtons.forEach((button) => {
             secondNum = '';
         }
         displayValue.textContent += ' ' + button.textContent + ' '; //display the operator
+
+        if (firstNum && operator) { //if user click an operator twice
+            alert('Choose a second number you idiot!');
+            displayValue.textContent = displayValue.textContent.slice(0,-3);
+        }
+
         operator = button.textContent; //update the operator
 
         if (!firstNum) { //if the user click an operator before choosing the first number
