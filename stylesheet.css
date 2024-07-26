@@ -27,6 +27,10 @@ h1 {
     height: 70px;
 }
 
+.displayValue {
+    font-size: 30px;
+}
+
 .firstRow,
 .secondRow,
 .thirdRow,

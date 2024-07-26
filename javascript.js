@@ -74,10 +74,10 @@ opeButtons.forEach((button) => {
         }
         displayValue.textContent += ' ' + button.textContent + ' '; //display the operator
 
-        if (firstNum && operator) { //if user click an operator twice
-            alert('Choose a second number you idiot!');
-            displayValue.textContent = displayValue.textContent.slice(0,-3);
-        }
+        // if (firstNum && operator) { //if user click an operator twice
+        //     alert('Choose a second number you idiot!');
+        //     displayValue.textContent = displayValue.textContent.slice(0,-3);
+        // }
 
         operator = button.textContent; //update the operator
 
@@ -120,4 +120,5 @@ backButton.addEventListener('click', (e) => {
     }
 });
 
+//still have a problem with choosing an operator twice, especially when keep doing math after the first operation goes through
 //new Feature: research the keyboard option if possible
